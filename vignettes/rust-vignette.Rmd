@@ -53,7 +53,7 @@ To study how the efficiency of the ratio-of-uniforms method deceases with dimens
 Without loss of generality we work with the case with unit marginal variances, i.e.
 $$ f(x) \propto \exp\left( -\frac12 \sum_{i=1}^d x_i^2 \right).$$
 
-For all dimensions $d$ the maximal probabilty of acceptance occurs when $r = 1/2$, giving
+For all dimensions $d$ the maximal probability of acceptance occurs when $r = 1/2$, giving
 $$ p_a(d, 1/2) = \frac{(\pi e)^{d/2}}{2^d (1+d/2)^{1+d/2}}. $$
 The maximal probabilty of acceptance decreases rapidly as $d$ increases, as the following table shows.
 
@@ -98,14 +98,14 @@ We demonstrate how to use the code with four examples.  We start with the genera
 ### Example 1: posterior density from a generalized Pareto extreme value analysis
 
 The generalized Pareto (GP) distribution is used in extreme value analyses as a model for excesses over a high threshold.  It has two parameters: a scale parameter $\sigma$ and a shape parameter $\xi$.  For $\xi \neq 0$ it has density function
-$g_Z(z) = \sigma^{-1} \, \left(1 + \xi z / \sigma\right)_{+}^{-(1+1/\xi)}, \, z > 0,$
+$$g_Z(z) = \sigma^{-1} \, \left(1 + \xi z / \sigma\right)_{+}^{-(1+1/\xi)}, \, z > 0,$$
 where $x_+\!=\!\max(x,0)$.  In the limit as $\xi \rightarrow 0$ we obtain the density of exponential distribution with mean $\sigma$. Suppose that we have available a random sample $z = (z_1, \ldots, z_m)$  of threshold excesses.  The likelihood for $\theta = (\sigma, \xi)$ is 
 $L(\theta; z) = \prod_{i=1}^m g_Z(z_i; \theta).$
 
 In a Bayesian analysis a prior density $\pi(\theta)$ is placed on $\theta$.  Information from the prior and likelihood are combined using Bayes' theorem to form a posterior density
 $\pi(\theta \mid z) \propto L(\theta; z) \pi(\theta).$  The target density to be $f(\theta) = \pi(\theta \mid z)$, which is positive for $\sigma > 0, \, \xi > - \sigma / x_{(m)}$, where $x_{(m)} = \max(z_1, \ldots, z_m)$.
-The particular prior density that we use here is 
-$\pi(\theta) \propto \sigma^{-1} \exp[-(\xi+1)], \,\sigma > 0, \, \xi \geq -1$ [@NA2016].
+The particular prior density that we use here is [@NA2016]
+$$\pi(\theta) \propto \sigma^{-1} \exp[-(\xi+1)], \,\sigma > 0, \, \xi \geq -1.$$
 For a review of Bayesian extreme value modelling see @Stephenson2016 and for an application based on the GP distribution see @NAJ2016.
 
 We simulate some data from a GP(1, -1/2) distribution.  We choose $\xi=-1/2$ because this tends to result in a posterior distribution with strong negative posterior association between $\sigma$ and $\xi$, making the benefit of transformation more apparent.  We also calculate some sample properties that feature in the likelihood, so that they can be passed to the log-density `logf` rather than being recalculated, and set an initial estimate at which `logf` is positive.
